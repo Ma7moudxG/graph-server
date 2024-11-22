@@ -1,19 +1,14 @@
 const jsonServer = require("json-server");
+const path = require("path");
+
 const server = jsonServer.create();
-const low = require("lowdb");
-const Memory = require("lowdb/adapters/Memory");
-
-// Use in-memory adapter
-const adapter = new Memory();
-const db = low(adapter);
-
-// Initialize data
-db.defaults({ posts: [], users: [] }).write();
-
-const router = jsonServer.router(db);
+const router = jsonServer.router(path.join(__dirname, "../public/db.json")); // Adjust the path if needed
 const middlewares = jsonServer.defaults();
 
 server.use(middlewares);
 server.use(router);
 
-module.exports.handler = require("serverless-http")(server);
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+  console.log(`JSON Server is running on port ${PORT}`);
+});
