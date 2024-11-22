@@ -2,9 +2,13 @@
   "name": "json-server",
   "version": "1.0.0",
   "scripts": {
-  "start": "node api/server.js"
+    "start": "netlify dev"
   },
   "dependencies": {
-    "json-server": "^0.17.3"
+    "json-server": "^0.17.3",
+    "serverless-http": "^3.0.3"
+  },
+  "devDependencies": {
+    "netlify-cli": "^15.0.0"
   }
 }
