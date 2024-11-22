@@ -1,5 +1,4 @@
 const jsonServer = require("json-server");
-
 const server = jsonServer.create();
 const middlewares = jsonServer.defaults();
 
@@ -46,7 +45,6 @@ const router = jsonServer.router(data);
 server.use(middlewares);
 server.use(router);
 
-const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
-  console.log(`JSON Server is running on port ${PORT}`);
-});
+// Export a handler for Netlify
+const serverless = require("serverless-http");
+module.exports.handler = serverless(server);
