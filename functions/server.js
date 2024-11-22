@@ -1,12 +1,12 @@
 const jsonServer = require("json-server");
 const server = jsonServer.create();
-const router = jsonServer.router("db.json");
+const path = require("path");
+
+// Use static JSON file
+const router = jsonServer.router(path.join(__dirname, "../db.json"));
 const middlewares = jsonServer.defaults();
-const express = require("express");
 
-// Wrapper to use with Netlify functions
-const app = express();
-app.use(middlewares);
-app.use(router);
+server.use(middlewares);
+server.use(router);
 
-module.exports.handler = require("serverless-http")(app);
+module.exports.handler = require("serverless-http")(server);
